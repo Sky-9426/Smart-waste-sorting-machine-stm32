@@ -17,6 +17,8 @@ This repository contains the code, firmware, and documentation for a university 
 - `common/` — shared utilities, drivers and deployment helpers
 - `docs/` — project report, diagrams and appendices (see project report PDF)
 
+- `docs/BUILD_AND_DEPLOY.md` — step-by-step model conversion, build and flashing instructions
+
 ## Hardware
 - STM32N6570-DK (Neural-ART NPU capable board)
 - Sony IMX335 camera module
