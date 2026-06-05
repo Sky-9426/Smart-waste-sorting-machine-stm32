@@ -1,3 +1,63 @@
+# Smart Waste Sorting Machine — STM32 Edge AI
+
+This repository contains the code, firmware, and documentation for a university project: "Smart Waste Sorting Machine using STM32-based Edge AI". The system performs on-device image classification and multi-modal sensor fusion to autonomously sort waste into categories (metal, plastic, cardboard, paper, trash) using an STM32N6570 development board with Neural-ART NPU acceleration.
+
+## Key features
+- On-device MobileNetV2 INT8 inference on STM32 (Neural-ART NPU)
+- Multi-modal sensor fusion (inductive proximity + Hall effect) to improve metal detection
+- Mechanical sorting using NEMA-17 steppers and A4988 drivers
+- Fill-level monitoring with HC-SR04 ultrasonic sensors
+- ESP32 gateway for Firebase telemetry and a React web dashboard (QR-based reward system)
+- Complete STM32CubeIDE project with dual FSBL/Application boot flow
+
+## Contents
+- `application_code/` — STM32 and application-specific code for different demos
+- `image_classification/` — model conversion, TFLite files, example deployment configs
+- `tf/` — training scripts, quantisation and experiments outputs
+- `common/` — shared utilities, drivers and deployment helpers
+- `docs/` — project report, diagrams and appendices (see project report PDF)
+
+## Hardware
+- STM32N6570-DK (Neural-ART NPU capable board)
+- Sony IMX335 camera module
+- Inductive proximity sensor (LJ12A3-4-Z/BX)
+- A3144 Hall effect sensor
+- NEMA-17 stepper motors + A4988 drivers
+- HC-SR04 ultrasonic sensors
+- ESP32-WROOM-32 (Wi‑Fi gateway)
+
+## Quick start (developer)
+1. Clone this repo:
+
+```bash
+git clone https://github.com/Sky-9426/Smart-waste-sorting-machine-stm32.git
+cd Smart-waste-sorting-machine-stm32
+```
+
+2. Prepare model and firmware:
+- Place your quantised TFLite model under `image_classification/` or update `image_classification/config_file_examples/deployment_n6_config_clean.yaml` `model.model_path` to point to your `.tflite` file.
+- Use `STM32Cube.AI` / `TFLite` conversion steps in `tf/` to generate C model artifacts for the STM32N6 target.
+
+3. Open the STM32 projects:
+- Open `application_code/image_classification/STM32N6/` in `STM32CubeIDE`. Build FSBL and Application projects, flash both using STM32CubeProgrammer as documented in the report.
+
+4. ESP32 gateway:
+- Flash the ESP32 bridge firmware (see `application_code/esp32/` if present) and configure Firebase credentials.
+
+5. Run and monitor:
+- Power the prototype, deposit items and monitor events on the React dashboard (Firebase). See the project report for detailed operation and timings.
+
+## Project report
+The project report (PDF) is included in the repository and contains full design description, experiments, results, and appendices with firmware excerpts. See the top-level `REPORT` or the `docs/` folder.
+
+## Contributing
+This repository contains a university project. If you'd like to contribute, please open issues or PRs. For major changes (new features, model updates) please discuss first.
+
+## License
+See `LICENSE.md` in the repository root for licensing terms.
+
+---
+For any questions about building or deploying the firmware to the STM32N6570-DK, tell me which step you want help with next (build, model conversion, or pushing to GitHub). 
 # STMicroelectronics – STM32 model zoo services
 
 Welcome to STM32 model zoo services!
